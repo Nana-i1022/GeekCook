@@ -1,0 +1,37 @@
+
+<h3>Geek一覧</h3>
+
+
+<%= link_to "新規投稿へ", new_cook_path %>
+
+<%= page_entries_info @cooks %>
+<%= paginate @cooks %>
+
+<div class="cooks-container">
+  <% @cooks.each do |t| %>
+    <% t.tags.each do |tag| %>
+        <%= tag.name %>
+       <% end %>
+    <div class="cook">
+     <%= image_tag t.image_url, size: "250x200" if t.image? %>
+      <%= t.comment %>
+      <%= t.ingredient %>
+      <%= t.recipe %>
+      <%= t.created_at%>
+      <%= link_to "詳細へ", cook_path(t.id) %>
+    </div>
+
+  <% end %>
+</div>
+
+<%= form_tag({controller:"cooks",action:"index"}, method: :get) do %>
+    <% Tag.all.each do |t| %>
+        <li><%= check_box :tag_ids, t.name %><%= t.name %></li>
+    <% end %>
+    <%= submit_tag '検索' %>
+<% end %>
+
+<%= form_tag({controller:"cooks",action:"index"}, method: :get) do %>
+    <%= text_field_tag :tag %>
+    <%= submit_tag 'タグを追加' %>
+<% end %>

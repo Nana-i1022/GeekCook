@@ -1,0 +1,14 @@
+<h1>GeekCook</h1>
+<h3>Cook詳細</h3>
+<div class="cook">
+  <p><%= @cook.comment %></p>
+  <p><%= @cook.ingredient %></p>
+  <p><%= @cook.recipe %></p>
+  <p><%= @cook.created_at %></p>
+</div>
+
+<% @cook.tags.each do |tag| %>
+    <span><%= tag.name %></span>
+<% end %>
+
+<%= link_to "Cook一覧に戻る", cooks_path %>
